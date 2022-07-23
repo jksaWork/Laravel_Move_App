@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('user/data' , [AdminUsersController::class , 'data'])->name('user.data');
     Route::resource('user' , AdminUsersController::class);
     Route::delete('user/bulk_delete', fn()=> '')->name('user.bulk_delete');
+
+    Route::get('setting' , [SettingController::class , 'index'])->name('setting');
+    Route::post('setting' , [SettingController::class , 'Store'])->name('setting.store');
+
+
+
 });
 })
 
