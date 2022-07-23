@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminHomeController;
+use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -37,8 +38,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('admin/data' , [AdminController::class , 'data'])->name('admins.data');
     Route::resource('admin' , AdminController::class);
     Route::delete('admin/bulk_delete', fn()=> '')->name('admin.bulk_delete');
+
+    // Admins Data  -----------------------
+    Route::get('user/data' , [AdminUsersController::class , 'data'])->name('user.data');
+    Route::resource('user' , AdminUsersController::class);
+    Route::delete('user/bulk_delete', fn()=> '')->name('user.bulk_delete');
 });
 })
+
 ;
-Route::get('admin/data' , [AdminController::class , 'data'])->name('admins.data');
+// Route::get('user/data' , [AdminUsersController::class , 'data'])->name('user.data');
+
+// Route::get('admin/data' , [AdminController::class , 'data'])->name('admins.data');
 
