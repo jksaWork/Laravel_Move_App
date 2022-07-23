@@ -19,7 +19,7 @@ class SettingController extends Controller
             $ValidatedDated['logo'] = $request->logo->hashName();
         }
         if($request->hasFile('fav_icon')){
-            $request->logo->store('public/uploads');
+            $request->fav_icon->store('public/uploads');
             $ValidatedDated['fav_icon'] = $request->fav_icon->hashName();
         }
 
