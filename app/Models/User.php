@@ -6,9 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use HasFactory, Notifiable;
 
     /**
@@ -37,4 +39,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // scope Wasel
+    public function scopewhenHasRole($query , $role_id)
+    {
+        return $query->when($role_id, function($query) use($role_id){
+            return $query->whereHas('roles', function($query) use ($role_id){
+                return $query->where('id', $role_id);
+            });
+        });
+    }
 }

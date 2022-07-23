@@ -18,7 +18,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/logos/ZmlnAW2N0To93TQU4CZNqdPYorkDaVLgCsebsjLj.png')}}" />
 
 	<!-- PAGE TITLE HERE -->
-	<title> Faster Client - @yield('title' , 'Dashboard')</title>
+	<title> Move App - @yield('title' , 'Dashboard')</title>
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- STYLESHEETS -->
@@ -27,14 +27,21 @@
 	<link rel="stylesheet" href="{{asset('EDUM/css/skin.css')}}">
     <link rel="stylesheet" href="{{asset('EDUM/vendor/jquery-steps/css/jquery.steps.css')}}">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
+    <script src="https:///cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/plugins/jquery.dataTables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/plugins/dataTables.bootstrap/dataTables.bootstrap.min.js') }}"></script>
+</head><script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
         *{
             font-family: 'Cairo', sans-serif;
         }
+
     </style>
-    @livewireStyles
     {{-- @notifyCss --}}
 @stack('styles')
 </head>
@@ -133,17 +140,12 @@
     ***********************************-->
     <!-- Required vendors -->
 
-    @livewireScripts
-
-
     <script src="{{asset('EDUM/vendor/global/global.min.js') }}"></script>
 	<script src="{{asset('EDUM/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 	<script src="{{asset('EDUM/js/custom.min.js')}}"></script>
-
     <!-- Chart Morris plugin files -->
     <script src="{{asset('EDUM/vendor/raphael/raphael.min.js')}}"></script>
     <script src="{{asset('EDUM/vendor/morris/morris.min.js') }}"></script>
-
 	<!-- Chart piety plugin files -->
     <script src="{{asset('EDUM/vendor/peity/jquery.peity.min.js') }}"></script>
 
@@ -153,6 +155,7 @@
 	<!-- Svganimation scripts -->
     <script src="{{asset('EDUM/vendor/svganimation/vivus.min.js') }}"></script>
     <script src="{{asset('EDUM/vendor/svganimation/svg.animation.js') }}"></script>
-    @stack('script')
+
+    @stack('scripts')
 </body>
 </html>

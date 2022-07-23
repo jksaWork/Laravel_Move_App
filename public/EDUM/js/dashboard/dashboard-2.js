@@ -89,7 +89,7 @@ var eduMin = function(){
 
 	}();
 
-	var direction =  localStorage.getItem('lang')  == 'en' ? 'ltr':'rtl';
+	var direction = 'ltr' ;//  localStorage.getItem('lang')  == 'en' ? '':'rtl';
 	if(direction != 'ltr')
 	{direction = 'rtl'; }
 
