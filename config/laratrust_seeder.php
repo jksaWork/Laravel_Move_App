@@ -16,6 +16,8 @@ return [
             'roles' => 'c,r,u,d',
             'admins' => 'c,r,u,d',
             'settings' => 'c,r,u,d',
+            'user' => 'c,r,u,d',
+            'genres' => 'c,r,u,d',
         ],
         'admin' => [],
         'user' => [],

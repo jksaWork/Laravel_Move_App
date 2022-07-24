@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -48,12 +50,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('setting' , [SettingController::class , 'index'])->name('setting');
     Route::post('setting' , [SettingController::class , 'Store'])->name('setting.store');
 
+    // genres --------------------------------
+    Route::get('genres/data' , [GenreController::class , 'data'])->name('genres.data');
+    Route::resource('genres' , GenreController::class)->only(['index' , 'destroy']);
+    Route::delete('genres/bulk_delete', fn()=> '')->name('user.bulk_delete');
 
+    // Movies --------------------------------
+    Route::get('movie/data' , [MovieController::class , 'data'])->name('movie.data');
+    Route::resource('movie' , MovieController::class)->only(['index' , 'destroy']);
+    Route::delete('movie/bulk_delete', fn()=> '')->name('movie.bulk_delete');
 
 });
-})
+});
+Route::get('movie/data' , [MovieController::class , 'data'])->name('movie.data');
 
-;
+// Route::get('genres/data' , [GenreController::class , 'data'])->name('genres.data');
+
 // Route::get('user/data' , [AdminUsersController::class , 'data'])->name('user.data');
 
 // Route::get('admin/data' , [AdminController::class , 'data'])->name('admins.data');
