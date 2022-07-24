@@ -33,6 +33,7 @@ return [
     'tmdb' => [
         'domain' => env('TMDB_DOAMIN'),
         'api_key' => env('TMDB_API_KEY'),
+        'max_page' => env('TMD_MAX_PAGE'),
     ],
 
 ];

@@ -1,14 +1,16 @@
 @extends('layouts.Edum')
 
 @section('content')
+{{-- @method('') --}}
+
 
 <div class="">
     <div>
-        <h2>Genres</h2>
+        <h2>Actors</h2>
     </div>
     <ul class="breadcrumb mt-2">
         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">Genres</li>
+        <li class="breadcrumb-item">Actors</li>
     </ul>
     <div class="row">
         <div class="col-md-12">
@@ -26,11 +28,8 @@
                                     class="fa fa-trash"></i> @lang('site.bulk_delete')</button>
                         </form><!-- end of form -->
                         @endif
-
                     </div>
-
                 </div><!-- end of row -->
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -38,15 +37,10 @@
                                 placeholder="@lang('site.search')">
                         </div>
                     </div>
-
                 </div><!-- end of row -->
-
                 <div class="row">
-
                     <div class="col-md-12">
-
                         <div class="table-responsive">
-
                             <table class="table datatable" id="roles-table" style="width: 100%;">
                                 <thead>
                                     <tr>
@@ -59,6 +53,7 @@
                                             </div>
                                         </th>
                                         <th>@lang('roles.name')</th>
+                                        <th>Image</th>
                                         <th>@lang('roles.count_movies')</th>
                                         <th>@lang('site.created_at')</th>
                                         <th>@lang('site.action')</th>
@@ -94,10 +89,11 @@
                 "url": "{{ asset('admin_assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('admin.genres.data') }}',
+                url: '{{ route('admin.actor.data') }}',
             },
             columns: [
                 {data: 'record_select', name: 'record_select', searchable: false, sortable: false, width: '1%'},
+                {data: 'image', name: 'image'},
                 {data: 'name', name: 'name'},
                 {data: 'movies_count', name: 'movies_count'},
                 {data: 'created_at', name: 'created_at', searchable: false},
@@ -115,6 +111,8 @@
         $('#data-table-search').keyup(function () {
             rolesTable.search(this.value).draw();
         });
+
+        $('.select2').select2();
 </script>
 
 @endpush

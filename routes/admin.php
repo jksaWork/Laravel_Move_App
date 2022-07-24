@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\AdminUsersController;
@@ -55,6 +56,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('genres' , GenreController::class)->only(['index' , 'destroy']);
     Route::delete('genres/bulk_delete', fn()=> '')->name('user.bulk_delete');
 
+    Route::get('actor/data' , [ActorController::class , 'data'])->name('actor.data');
+    Route::resource('actor' , ActorController::class)->only(['index' , 'destroy']);
+    Route::delete('actor/bulk_delete', fn()=> '')->name('actor.bulk_delete');
     // Movies --------------------------------
     Route::get('movie/data' , [MovieController::class , 'data'])->name('movie.data');
     Route::resource('movie' , MovieController::class)->only(['index' , 'destroy']);
@@ -63,6 +67,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 });
 Route::get('movie/data' , [MovieController::class , 'data'])->name('movie.data');
+Route::get('actor/data' , [ActorController::class , 'data'])->name('actor.data');
 
 // Route::get('genres/data' , [GenreController::class , 'data'])->name('genres.data');
 

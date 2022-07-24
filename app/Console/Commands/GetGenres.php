@@ -39,8 +39,7 @@ class GetGenres extends Command
      */
     public function handle()
     {
-        $this->info('Start Of Command');
-
+        $this->info('Start Of Get Genres');
         $domain = config('services.tmdb.domain');
         $key = config('services.tmdb.api_key');
         $url = "$domain/genre/movie/list?api_key=$key";
