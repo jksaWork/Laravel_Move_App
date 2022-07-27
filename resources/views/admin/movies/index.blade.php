@@ -27,14 +27,14 @@
                         </div>
                     </div><!-- end of row -->
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>search </label>
                             <div class="form-group">
                                 <input type="text" id="data-table-search" class="form-control" autofocus
                                     placeholder="@lang('site.search')">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Genres</label>
                                 <select class="form-control" name="" id="genres">
@@ -46,7 +46,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Actor</label>
                                 <select class="form-control " name="actors" id="actors">
@@ -56,6 +56,16 @@
                                     </option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Type</label>
+                              <select class="form-control" name="" id="type">
+                                <option value=""> all</option>
+                                <option value="up_comming"> Up Comming </option>
+                                <option value="now_playing"> now Playing</option>
+                              </select>
                             </div>
                         </div>
                     </div><!-- end of row -->
@@ -111,6 +121,7 @@
         // alert('worgiing');
         let genres =  @json(request()->genre_id);
         let actor =@json(request()->actor_id);
+        let type;
         console.log(genres);
         let MovieTable = $('#roles-table').DataTable({
             dom: "tiplr",
@@ -124,6 +135,7 @@
                 data:function(d){
                     d.genre_id = genres;
                     d.actor_id = actor;
+                    d.type = type;
                 }
             },
             columns: [
@@ -134,7 +146,7 @@
                 {data: 'vote', name: 'vote', searchable: false},
                 {data: 'vote_count', name: 'vote_count', searchable: false},
                 {data: 'release_date', name: 'release_date', searchable: false},
-                {data: 'actions', name: 'actions', searchable: false, sortable: false, width: '20%'},
+                {data: 'actions', name: 'actions', searchable: false, sortable: false, width: '30%'},
 ],
             // order: [[3, 'desc']],
             drawCallback: function (settings) {
@@ -154,6 +166,10 @@
             MovieTable.ajax.reload();
         });
 
+        $('#type').on('change' , function(){
+            type = $(this).val();
+            MovieTable.ajax.reload();
+        })
         $('#actors').on('change' , function(){
             // alert('change');
             actor = $(this).val();

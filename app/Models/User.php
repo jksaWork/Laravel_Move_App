@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
-    use HasFactory, Notifiable;
+    use HasApiTokens , HasFactory, Notifiable;
 
-    /**
+    /**s
      * The attributes that are mass assignable.
      *
      * @var array
@@ -40,6 +41,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function favorateMovies(){
+        return $this->belongsToMany(Movie::class, 'user_favourate_movie', 'user_id');
+    }
+    public function favoriteMovies()
+    {
+        return $this->belongsToMany(Movie::class, 'user_favorite_movie', 'user_id', 'movie_id');
+    }
 
     // scope Wasel
     public function scopewhenHasRole($query , $role_id)

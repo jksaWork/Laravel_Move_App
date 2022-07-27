@@ -23,6 +23,6 @@ class ActorController extends Controller
             return view('admin.actors.data_table.image', compact('actor'));
         })
         ->rawColumns(['record_select', 'actions'])
-        ->toJson();
+    ->toJson();
     }
 }

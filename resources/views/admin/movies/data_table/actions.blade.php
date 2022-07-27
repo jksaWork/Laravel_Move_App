@@ -1,5 +1,7 @@
 
-
+<a href="{{ route('admin.movie.show' , $id)}}" class="btn  btn-xs btn-primary">
+    Show Movie
+</a>
 @if (auth()->user()->hasPermission('delete_genres'))
     <form action="{{ route('admin.genres.destroy', $id) }}" class="my-1 my-xl-0" method="post" style="display: inline-block;">
         @csrf

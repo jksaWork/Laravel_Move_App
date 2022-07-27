@@ -2,7 +2,7 @@
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
             <li class="{{ request()->routeIs('admin.home') ? 'mm-active' : '' }} ">
-                <a class="ai-icon d-flex justify-content-between align-items-center"  href="/" aria-expanded="false">
+                <a class="ai-icon d-flex justify-content-between align-items-center"  href="{{route('admin.admin.home')}}" aria-expanded="false">
                     <span>
                     <span>
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">

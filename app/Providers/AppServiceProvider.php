@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        ResponseFactory::macro('ApiErrors' , function ($error = 'Some Thing Went Worong'){
+            return response()->json([
+                'status' => false,
+                'message' => $error ,
+            ]);
+        });
+
+        ResponseFactory::macro('ApiSuccess' , function ($data = 'Done SuccesFuly'){
+            return response()->json([
+                'status' => true,
+                'message' => $data ,
+            ]);
+        });
     }
 }

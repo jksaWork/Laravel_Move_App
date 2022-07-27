@@ -25,8 +25,13 @@ class MovieController extends Controller
         return view('admin.movies.index' , compact('genres', 'actors'));
     }
 
+    public function show(Movie $movie){
+        $movie->load(['genres' , 'actors' , 'images']);
+        return view('admin.movies.show' , compact('movie'));
+    }
+
     public function data(){
-        $q = Movie::with('genres')->select()->whenHasGenreId(request()->genre_id)->whenHasActor(request()->actor_id);
+        $q = Movie::with('genres')->select()->whenHasGenreId(request()->genre_id)->whenHasActor(request()->actor_id)->whenType(request()->type);
         return DataTables::of($q)
         ->addColumn('record_select', 'admin.movies.data_table.record_select')
         ->addColumn('poster', function (Movie $movie) {

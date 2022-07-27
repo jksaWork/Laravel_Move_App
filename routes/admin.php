@@ -31,8 +31,9 @@ Route::get('/pro' , fn() => 'jksa')->name('profile');
 Route::middleware('auth')->group(function(){
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('home' , [AdminHomeController::class , 'index'])->name('home');
-
+    Route::get('home' , [AdminHomeController::class , 'index'])->name('admin.home');
+    Route::get('getStaticdata' , [AdminHomeController::class , 'getStaticdata'])->name('getStaticdata');
+    Route::get('Chart' , [AdminHomeController::class , 'Chart'])->name('Chart');
     // role  -----------------
     Route::get('role/data' , [RoleController::class , 'data'])->name('roles.data');
     Route::resource('roles' , RoleController::class);
@@ -61,7 +62,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('actor/bulk_delete', fn()=> '')->name('actor.bulk_delete');
     // Movies --------------------------------
     Route::get('movie/data' , [MovieController::class , 'data'])->name('movie.data');
-    Route::resource('movie' , MovieController::class)->only(['index' , 'destroy']);
+    Route::resource('movie' , MovieController::class)->only(['index','show', 'destroy']);
     Route::delete('movie/bulk_delete', fn()=> '')->name('movie.bulk_delete');
 
 });
@@ -75,3 +76,5 @@ Route::get('actor/data' , [ActorController::class , 'data'])->name('actor.data')
 
 // Route::get('admin/data' , [AdminController::class , 'data'])->name('admins.data');
 
+Route::get('getStaticdata' , [AdminHomeController::class , 'getStaticdata'])->name('getStaticdata');
+Route::get('Chart' , [AdminHomeController::class , 'Chart'])->name('Chart');

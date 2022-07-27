@@ -35,6 +35,21 @@ class Movie extends Model
         });
     }
 
+    public function scopewhenType($q, $type){
+                return $q->where('type', $type);
+    }
+
+    public function scopewhenYear($q, $release_date){
+        return $q->where('release_date', $release_date);
+    }
+
+    public function scopeWhenSearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            return $q->where('title', 'like', '%' . $search . '%');
+        });
+    }
+
 
     // relations ----------------------
     public function genres()
@@ -46,6 +61,13 @@ class Movie extends Model
         return $this->belongsToMany(Actor::class , 'movies_actors');
     }
 
+    public function images(){
+        return $this->hasMany(MoviesImges::class);
+    }
+
+    public function FavorateByUsers(){
+        return $this->belongsToMany(User::class, 'user_favorite_movie', 'movie_id');
+    }
 
 
 }

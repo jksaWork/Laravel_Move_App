@@ -46,6 +46,8 @@ class getMovies extends Command
      public function handle(){
         $this->info('Begin Command To Get Movie ');
         $this->getPupularMovie();
+        $this->getUpCommingMovie();
+        $this->getNowPlayinMovie();
         $this->info('End Command To Get Movie');
 
      }
@@ -71,10 +73,67 @@ class getMovies extends Command
                 ]);
                 $this->MovieActor($movie);
                 $this->MovieGrener($result , $movie);
+                $this->getMovieImage($movie);
+        }
+        }
+    }
+    public function getUpCommingMovie()
+    {
+        // $url = "/movie/popular?region=us&api_key=";
+        $this->info('UpComming Movies');
+        $count = config('services.tmdb.max_page');
+        for ($i=1; $i <= $count; $i++) {
+            $this->info('Get Movie Page' . $i);
+            $url = "$this->domain/movie/upcoming?region=us&api_key=$this->key";
+            $res = Http::withoutVerifying()->get($url);
+            foreach ($res->json()['results'] as $result) {
+                $movie = Movie::create([
+                    'e_id' => $result['id'],
+                    'title' => $result['title'],
+                    'description' => $result['overview'],
+                    'poster' => $result['poster_path'],
+                    'banner' => $result['backdrop_path'],
+                    'release_date' => $result['release_date'],
+                    'vote' => $result['vote_average'],
+                    'type' => 'up_comming',
+                    'vote_count' => $result['vote_count'],
+                ]);
+                $this->MovieActor($movie);
+                $this->MovieGrener($result , $movie);
+                $this->getMovieImage($movie);
+        }
+        }
+    }
+    public function getNowPlayinMovie()
+    {
+        $this->info('Now Playing Info');
+        // $url = "/movie/popular?region=us&api_key=";
+        $count = config('services.tmdb.max_page');
+        echo $count;
+        for ($i=1; $i <= $count; $i++) {
+            $this->info('Get Movie Page' . $i);
+            $url = "$this->domain/movie/now_playing?region=us&api_key=$this->key";
+            $res = Http::withoutVerifying()->get($url);
+            foreach ($res->json()['results'] as $result) {
+                $movie = Movie::create([
+                    'e_id' => $result['id'],
+                    'title' => $result['title'],
+                    'description' => $result['overview'],
+                    'poster' => $result['poster_path'],
+                    'banner' => $result['backdrop_path'],
+                    'release_date' => $result['release_date'],
+                    'vote' => $result['vote_average'],
+                    'type' => 'now_playing',
+                    'vote_count' => $result['vote_count'],
+                ]);
+                $this->MovieActor($movie);
+                $this->MovieGrener($result , $movie);
+                $this->getMovieImage($movie);
         }
         }
     }
     private function MovieGrener($result, Movie $movie){
+        $this->info('Begin TO GET Moveis Images');
         foreach ($result['genre_ids'] as $genreId) {
             $genre = Genre::where('e_id', $genreId)->first();
             $movie->genres()->attach($genre->id);
@@ -102,5 +161,15 @@ class getMovies extends Command
             $movie->actors()->syncWithoutDetaching($actor->id);
             # code...
         }
+    }
+    private function getMovieImage(Movie $movie){
+        $url = $this->domain.'/movie/' . $movie->e_id . '/images?api_key=' . $this->key;
+        $response = Http::withoutVerifying()->get($url);
+        $movie->images()->delete();
+            foreach ($response->json()['backdrops'] as $im) {
+                $movie->images()->create([
+                    'image' => $im['file_path']
+                ]);
+            }
     }
 }

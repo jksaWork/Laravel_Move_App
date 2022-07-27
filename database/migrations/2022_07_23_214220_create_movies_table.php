@@ -21,6 +21,7 @@ class CreateMoviesTable extends Migration
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
             $table->date('release_date');
+            $table->enum('type' , ['up_comming' , 'now_playing'] )->nullable();
             $table->double('vote', 8, 2);
             $table->bigInteger('vote_count');
             $table->timestamps();
